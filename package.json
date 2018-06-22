@@ -1,0 +1,17 @@
+{
+  "name": "firefox-hash-routing",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "clean": "rm -rf dist",
+    "build": "mkdir dist; cp -r src/* dist/",
+    "start-a": "live-server './dist/host a' --port=3000",
+    "start-b": "live-server './dist/host b' --port=3001 --cors",
+    "prestart": "yarn",
+    "start": "yarn clean; yarn build; yarn start-a& yarn start-b"
+  },
+  "devDependencies": {
+    "live-server": "^1.2.0"
+  }
+}

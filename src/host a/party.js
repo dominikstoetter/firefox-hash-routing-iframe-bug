@@ -1,0 +1,1 @@
+window.party = () => alert('party!!')
