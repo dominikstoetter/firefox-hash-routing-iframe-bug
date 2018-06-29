@@ -16,22 +16,27 @@ iframeDocument.open()
 iframeDocument.invitePeopleForParty = () => fetch('http://localhost:3001/index.html')
   .then(xhr => xhr.text())
   .then(html => {
-    iframeDocument.open()
-    iframeDocument.write(html)
-    iframeDocument.location.hash = ''
-    iframeDocument.close()
+    var parser = new DOMParser()
+    var doc = parser.parseFromString(html, "text/html")
+    var newHtml = doc.querySelector('html')
+    var oldHtml = iframeDocument.querySelector('html')
+    
+    iframe.contentDocument.replaceChild(newHtml, oldHtml)
+
+    iframeDocument.querySelectorAll('script').forEach(function(script) {
+      const newScript = iframeDocument.createElement('script')
+      newScript.src = script.src
+      iframeDocument.querySelector('head').appendChild(newScript)
+    })
     container.setAttribute('status', '3')  
 })
 
-const body = iframeDocument.createElement('body')
-body.addEventListener('invitePeopleForParty', iframeDocument.invitePeopleForParty, { once: true })
-iframeDocument.appendChild(body)
+const html = iframeDocument.createElement('html')
+iframeDocument.appendChild(html)
 iframeDocument.close()
 
-setTimeout(() => {
-  var event = iframeDocument.createEvent('Event')
-  event.initEvent('invitePeopleForParty', false, false)
-  body.dispatchEvent(event)
-  container.setAttribute('status', '2')  
-})
+
+iframeDocument.invitePeopleForParty()
+container.setAttribute('status', '2')  
+
 
