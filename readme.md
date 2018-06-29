@@ -1,5 +1,8 @@
 # description
-a potential firefox bug where you can't use the history back button
+a <s>potential</s> firefox bug where you can't use the history back button
+
+# workaround 
+https://github.com/dominikstoetter/firefox-hash-routing-iframe-bug/tree/hotfix
 
 ![bug](https://github.com/dominikstoetter/firefox-hash-routing-iframe-bug/blob/master/firefoxbug.gif)
 
