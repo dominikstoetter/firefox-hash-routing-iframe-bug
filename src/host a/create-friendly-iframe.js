@@ -16,6 +16,7 @@ iframeDocument.open()
 iframeDocument.invitePeopleForParty = () => fetch('http://localhost:3001/index.html')
   .then(xhr => xhr.text())
   .then(html => {
+    setTimeout(() => {
     var parser = new DOMParser()
     var doc = parser.parseFromString(html, "text/html")
     var newHtml = doc.querySelector('html')
@@ -29,14 +30,14 @@ iframeDocument.invitePeopleForParty = () => fetch('http://localhost:3001/index.h
       iframeDocument.querySelector('head').appendChild(newScript)
     })
     container.setAttribute('status', '3')  
+  }, 1000)
 })
 
 const html = iframeDocument.createElement('html')
 iframeDocument.appendChild(html)
 iframeDocument.close()
 
-
-iframeDocument.invitePeopleForParty()
-container.setAttribute('status', '2')  
-
-
+setTimeout(() => {
+  iframeDocument.invitePeopleForParty()
+  container.setAttribute('status', '2')  
+}, 1000)
